@@ -1,0 +1,57 @@
+{
+  "project": {
+    "name": "shop-backend",
+    "version": "1.2.0",
+    "release_license": "GPL-2.0-only"
+  },
+  "components": [
+    {
+      "name": "orders-lib",
+      "version": "2.0.1",
+      "license": "LGPL-3.0-only",
+      "replacements": [
+        {
+          "name": "orders-lib-2.1",
+          "license": "LGPL-2.1-only",
+          "url": "https://example.org/orders-lib",
+          "note": "旧版分支，可转换为 GPL-2"
+        }
+      ]
+    },
+    {
+      "name": "payments-sdk",
+      "version": "0.9.4",
+      "license": "LicenseRef-Proprietary",
+      "replacements": [
+        {
+          "name": "open-payments",
+          "license": "Apache-2.0",
+          "url": "https://example.com/open-payments",
+          "note": "API 兼容的开源替代"
+        }
+      ]
+    },
+    {
+      "name": "jsonutil",
+      "version": "1.0.0",
+      "license": "MIT"
+    },
+    {
+      "name": "readline",
+      "version": "8.2",
+      "license": "LGPL-3.0-only"
+    }
+  ],
+  "graph": [
+    {"from": "shop-backend", "to": "orders-lib", "linkage": "dynamic", "scope": "runtime"},
+    {"from": "shop-backend", "to": "payments-sdk", "linkage": "static", "scope": "runtime"},
+    {"from": "orders-lib", "to": "readline", "linkage": "static", "scope": "runtime"},
+    {"from": "orders-lib", "to": "jsonutil", "linkage": "static", "scope": "runtime"},
+    {"from": "shop-backend", "to": "jsonutil", "linkage": "static", "scope": "test"}
+  ],
+  "options": {
+    "include_info": true,
+    "include_notices": true,
+    "max_paths": 2000
+  }
+}

@@ -1,0 +1,22 @@
+services:
+  license-audit:
+    build: .
+    image: license-audit-api:1.0.0
+    container_name: license-audit-api
+    ports:
+      - "8000:8000"
+    environment:
+      # 所有配置项均以 AUDIT_ 为前缀
+      AUDIT_HOST: "0.0.0.0"
+      AUDIT_PORT: "8000"
+      AUDIT_STORE_CAPACITY: "10000"
+      AUDIT_STORE_TTL_SECONDS: "3600"
+      AUDIT_CORS_ALLOW_ORIGINS: "*"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c",
+             "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3).status==200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
