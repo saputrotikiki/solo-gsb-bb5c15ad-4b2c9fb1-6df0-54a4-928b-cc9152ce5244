@@ -1,0 +1,23 @@
+services:
+  license-audit:
+    build: .
+    image: license-audit-api:latest
+    container_name: license-audit-api
+    ports:
+      - "8000:8000"
+    environment:
+      # 应用配置（全部可省略，这里展示默认值）
+      APP_NAME: license-audit-api
+      APP_ENV: production
+      LOG_LEVEL: info
+      HOST: 0.0.0.0
+      PORT: "8000"
+      # 每个冲突组件默认返回的依赖路径条数
+      MAX_PATHS_PER_NODE: "1"
+      HARD_MAX_PATHS: "100"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health').status == 200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

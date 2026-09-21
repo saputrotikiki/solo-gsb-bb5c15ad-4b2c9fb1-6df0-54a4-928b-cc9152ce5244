@@ -1,0 +1,51 @@
+{
+  "project_key": "root",
+  "project_name": "my-saas-backend",
+  "release_license": "AGPL-3.0-or-later",
+  "components": [
+    {
+      "key": "pkg:npm/web-frame@4.2.0",
+      "name": "web-frame",
+      "version": "4.2.0",
+      "license_expression": "MIT"
+    },
+    {
+      "key": "pkg:npm/db-driver@1.8.0",
+      "name": "db-driver",
+      "version": "1.8.0",
+      "license_expression": "Apache-2.0"
+    },
+    {
+      "key": "pkg:npm/gpl-utils@0.9.0",
+      "name": "gpl-utils",
+      "version": "0.9.0",
+      "license_expression": "GPL-2.0-only"
+    },
+    {
+      "key": "pkg:maven/org.json/legacy-json@1.0",
+      "name": "legacy-json",
+      "version": "1.0",
+      "license_expression": "(LGPL-2.1-only OR MPL-2.0)"
+    },
+    {
+      "key": "pkg:npm/gpl-utils-mit-fork@0.9.1",
+      "name": "gpl-utils (MIT fork)",
+      "version": "0.9.1",
+      "license_expression": "MIT",
+      "replacement_for": "pkg:npm/gpl-utils@0.9.0",
+      "replacement_label": "社区 MIT 分叉，API 兼容 0.9.x"
+    }
+  ],
+  "edges": [
+    {"source": "root", "target": "pkg:npm/web-frame@4.2.0", "link": "dynamic"},
+    {"source": "root", "target": "pkg:npm/db-driver@1.8.0", "link": "dynamic"},
+    {"source": "pkg:npm/web-frame@4.2.0", "target": "pkg:npm/gpl-utils@0.9.0", "link": "static"},
+    {"source": "pkg:npm/db-driver@1.8.0", "target": "pkg:npm/gpl-utils@0.9.0", "link": "dynamic"},
+    {"source": "root", "target": "pkg:maven/org.json/legacy-json@1.0", "link": "dynamic"}
+  ],
+  "options": {
+    "max_paths_per_component": 5,
+    "include_warnings": true,
+    "audit_unreachable": true
+  }
+}
